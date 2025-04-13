@@ -1,0 +1,20 @@
+# app
+fastapi
+uvicorn[standard]
+python-dotenv
+PyYAML
+sqlalchemy
+psycopg2-binary
+email-validator
+pydantic
+
+# testing
+pytest
+httpx
+pytest-cov
+
+# lint, type-check, format
+black
+flake8
+isort
+mypy
