@@ -1,7 +1,7 @@
 from fastapi import Depends, FastAPI
 
-import app.infra
 import app.dtos as dtos
+import app.infra
 from app.crud.user import create_user
 from app.db import session
 from app.db.session import Base, current_session, engine
@@ -19,3 +19,4 @@ async def health_check():
 
 
 app.include_router(route_users.router)
+app.include_router(route_variants.router)

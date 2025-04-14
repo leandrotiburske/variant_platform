@@ -1,5 +1,7 @@
 from typing import List, Optional
 
+from app.dtos.variant import VariantResponse
+
 from pydantic import BaseModel, EmailStr
 
 
@@ -17,9 +19,10 @@ class UserUpdate(UserCreate):
     email: Optional[EmailStr]
 
 
-class UserResponse(UserBase):
+class UserResponse(UserCreate):
     id: int
-    variants: List[int] = []
+    variants: List[VariantResponse] = []
 
     class Config:
         from_attributes = True
+        use_enum_values = True
