@@ -1,26 +1,26 @@
 from fastapi.testclient import TestClient
 
-from app.dtos.user import UserCreate
+from app.dtos.subject import SubjectCreate
 from app.dtos.variant import VariantCreate
 from app.main import app
 
 
-def test_create_user():
+def test_create_individual():
     client = TestClient(app)
-    user = UserCreate(name="Leandro", email="leandro@email.com")
-    response = client.post("/users/", json=user.model_dump())
+    subject = SubjectCreate(name="Leandro", email="leandro@email.com")
+    response = client.post("/subjects/", json=subject.model_dump())
     assert response.status_code == 201
     assert response.json()["name"] == "Leandro"
     assert response.json()["email"] == "leandro@email.com"
 
 
-def test_add_variant_to_user():
+def test_add_variant_to_subject():
     client = TestClient(app)
 
-    # Create a user
-    user = UserCreate(name="Leandro", email="leandro@email.com")
-    user = client.post("/users/", json=user.model_dump())
-    user_id = user.json()["id"]
+    # Create a subject
+    subject = SubjectCreate(name="Leandro", email="leandro@email.com")
+    subject = client.post("/subjects/", json=subject.model_dump())
+    subject_id = subject.json()["id"]
 
     # Create a variant
     variant = VariantCreate(
@@ -34,10 +34,10 @@ def test_add_variant_to_user():
     variant = client.post("/variants/", json=variant.model_dump())
     variant_id = variant.json()["id"]
 
-    # Add the variant to the user
-    response = client.patch(f"/users/{user_id}/add_variants/?variant_id={variant_id}")
+    # Add the variant to the subject
+    response = client.patch(f"/subjects/{subject_id}/add_variants/?variant_id={variant_id}")
     assert response.status_code == 200
-    assert response.json()["id"] == user_id
+    assert response.json()["id"] == subject_id
 
     # Access the variants list
     variants = response.json()["variants"]
@@ -49,24 +49,24 @@ def test_add_variant_to_user():
     assert variants[0]["id"] == variant.json()["id"]
 
 
-def test_get_user():
+def test_get_subject():
     client = TestClient(app)
-    user = UserCreate(name="Leandro", email="leandro@email.com")
-    user_persisted = client.post("/users/", json=user.model_dump())
-    response = client.get(f"/users/{user_persisted.json()['id']}")
+    subject = SubjectCreate(name="Leandro", email="leandro@email.com")
+    subject_persisted = client.post("/subjects/", json=subject.model_dump())
+    response = client.get(f"/subjects/{subject_persisted.json()['id']}")
     assert response.status_code == 200
-    assert response.json()["name"] == user_persisted.json()["name"]
-    assert response.json()["email"] == user_persisted.json()["email"]
-    assert response.json()["id"] == user_persisted.json()["id"]
+    assert response.json()["name"] == subject_persisted.json()["name"]
+    assert response.json()["email"] == subject_persisted.json()["email"]
+    assert response.json()["id"] == subject_persisted.json()["id"]
 
 
-def test_get_users_variants():
+def test_get_subjects_variants():
     client = TestClient(app)
 
-    # Create a user
-    user = UserCreate(name="Leandro", email="leandro@email.com")
-    user = client.post("/users/", json=user.model_dump())
-    user_id = user.json()["id"]
+    # Create a subject
+    subject = SubjectCreate(name="Leandro", email="leandro@email.com")
+    subject = client.post("/subjects/", json=subject.model_dump())
+    subject_id = subject.json()["id"]
 
     # Create a variant
     variant = VariantCreate(
@@ -80,10 +80,10 @@ def test_get_users_variants():
     variant = client.post("/variants/", json=variant.model_dump())
     variant_id = variant.json()["id"]
 
-    # Add the variant to the user
-    client.patch(f"/users/{user_id}/add_variants/?variant_id={variant_id}")
+    # Add the variant to the subject
+    client.patch(f"/subjects/{subject_id}/add_variants/?variant_id={variant_id}")
 
-    response = client.get(f"/users/{user_id}/variants/")
+    response = client.get(f"/subjects/{subject_id}/variants/")
 
     assert response.status_code == 200
     assert len(response.json()) == 1
@@ -97,12 +97,12 @@ def test_get_users_variants():
     assert response.json()["variants"][0]["id"] == variant.json()["id"]
 
 
-def test_filter_users_variants():
+def test_filter_subjects_variants():
     client = TestClient(app)
 
-    user = UserCreate(name="Leandro", email="leandro@email.com")
-    user = client.post("/users/", json=user.model_dump())
-    user_id = user.json()["id"]
+    subject = SubjectCreate(name="Leandro", email="leandro@email.com")
+    subject = client.post("/subjects/", json=subject.model_dump())
+    subject_id = subject.json()["id"]
 
     # Create variant 1
     variant1 = VariantCreate(
@@ -116,8 +116,8 @@ def test_filter_users_variants():
     variant1 = client.post("/variants/", json=variant1.model_dump())
     variant1_id = variant1.json()["id"]
 
-    # Add the variant to the user
-    client.patch(f"/users/{user_id}/add_variants/?variant_id={variant1_id}")
+    # Add the variant to the subject
+    client.patch(f"/subjects/{subject_id}/add_variants/?variant_id={variant1_id}")
 
     # Create variant 2
     variant2 = VariantCreate(
@@ -131,10 +131,10 @@ def test_filter_users_variants():
     variant2 = client.post("/variants/", json=variant2.model_dump())
     variant2_id = variant2.json()["id"]
 
-    # Add the variant to the user
-    client.patch(f"/users/{user_id}/add_variants/?variant_id={variant2_id}")
+    # Add the variant to the subject
+    client.patch(f"/subjects/{subject_id}/add_variants/?variant_id={variant2_id}")
 
-    response = client.get(f"/users/{user_id}/variants/?chromosome=X")
+    response = client.get(f"/subjects/{subject_id}/variants/?chromosome=X")
     assert response.status_code == 200
     assert len(response.json()) == 1
     assert response.json()["variants"][0]["chromosome"] == variant2.json()["chromosome"]

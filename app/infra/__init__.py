@@ -1,5 +1,5 @@
-from app.infra.association import UserVariant
-from app.infra.user import User
+from app.infra.association import SubjectVariant
+from app.infra.subject import Subject
 from app.infra.variant import Variant
 
-__all__ = ["User", "Variant", "UserVariant"]
+__all__ = ["Subject", "Variant", "SubjectVariant"]

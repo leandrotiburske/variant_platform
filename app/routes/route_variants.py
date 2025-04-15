@@ -42,7 +42,7 @@ async def get_variant(variant_id: int, db: session = Depends(current_session)):
     except Exception as e:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
-            detail=f"User with id {variant_id} not found: {str(e)}",
+            detail=f"Subject with id {variant_id} not found: {str(e)}",
         ) from e
 
 

@@ -5,21 +5,21 @@ from pydantic import BaseModel, EmailStr
 from app.dtos.variant import VariantResponse
 
 
-class UserBase(BaseModel):
+class SubjectBase(BaseModel):
     name: str
     email: EmailStr
 
 
-class UserCreate(UserBase):
+class SubjectCreate(SubjectBase):
     pass
 
 
-class UserUpdate(UserCreate):
+class SubjectUpdate(SubjectCreate):
     name: Optional[str]
     email: Optional[EmailStr]
 
 
-class UserResponse(UserCreate):
+class SubjectResponse(SubjectCreate):
     id: int
     variants: List[VariantResponse] = []
 
