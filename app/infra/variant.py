@@ -1,6 +1,7 @@
 from enum import Enum
 
 from sqlalchemy import Column, Integer, String
+from sqlalchemy.dialects.postgresql import ARRAY
 from sqlalchemy.orm import relationship
 from sqlalchemy.types import Enum as SqlEnum
 
@@ -51,6 +52,12 @@ class Variant(Base):
     chromosome = Column(SqlEnum(ChromosomeEnum), index=True, nullable=False)
     position = Column(Integer, index=True, nullable=False)
     reference = Column(String, index=True, nullable=False)
-    classification = Column(SqlEnum(ClassificationEnum), index=True, nullable=False)
+    alternative = Column(String, index=True, nullable=False)
+    gene = Column(String, index=True, nullable=False)
+
+    classification = Column(SqlEnum(ClassificationEnum), index=True, nullable=True)
+    phenotypes = Column(ARRAY(String), index=True, nullable=True)
+    external_id = Column(String, index=True, nullable=True)
+    publications = Column(ARRAY(String), nullable=True)
 
     users = relationship("User", secondary="user_variants", back_populates="variants")

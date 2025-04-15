@@ -1,8 +1,8 @@
 from typing import List, Optional
 
-from app.dtos.variant import VariantResponse
-
 from pydantic import BaseModel, EmailStr
+
+from app.dtos.variant import VariantResponse
 
 
 class UserBase(BaseModel):
