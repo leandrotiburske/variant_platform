@@ -23,7 +23,9 @@ def get_subject_by_id(db: Session, subject_id: int) -> SubjectResponse:
     return subject
 
 
-def add_variant_to_subject(db: Session, subject_id: int, variant_id: int) -> SubjectResponse:
+def add_variant_to_subject(
+    db: Session, subject_id: int, variant_id: int
+) -> SubjectResponse:
     subject = get_subject_by_id(db, subject_id)
     variant = db.query(Variant).filter(Variant.id == variant_id).first()
     if subject and variant:

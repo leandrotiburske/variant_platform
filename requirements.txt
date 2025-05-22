@@ -8,6 +8,11 @@ psycopg2-binary
 email-validator
 pydantic
 
+# authentication
+passlib[bcrypt]
+python-jose[cryptography]
+python-multipart
+
 # testing
 pytest
 httpx

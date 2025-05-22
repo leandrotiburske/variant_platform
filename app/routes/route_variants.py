@@ -1,10 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 
+from app.auth.authentication import get_current_account
 from app.crud.variant import (create_variant, get_all_variants,
                               get_variant_by_id)
 from app.db import session
 from app.db.session import current_session
 from app.dtos.variant import VariantCreate, VariantList, VariantResponse
+from app.infra.account import Account
 from app.settings import logger
 
 router = APIRouter(prefix="/variants", tags=["variants"])
@@ -12,7 +14,9 @@ router = APIRouter(prefix="/variants", tags=["variants"])
 
 @router.post("/", response_model=VariantResponse, status_code=status.HTTP_201_CREATED)
 async def create_new_variant(
-    variant: VariantCreate, db: session = Depends(current_session)
+    variant: VariantCreate,
+    db: session = Depends(current_session),
+    current_user: Account = Depends(get_current_account),
 ):
     """
     Create a new variant.
@@ -32,7 +36,11 @@ async def create_new_variant(
 @router.get(
     "/{variant_id}", response_model=VariantResponse, status_code=status.HTTP_200_OK
 )
-async def get_variant(variant_id: int, db: session = Depends(current_session)):
+async def get_variant(
+    variant_id: int,
+    db: session = Depends(current_session),
+    current_user: Account = Depends(get_current_account),
+):
     """
     Get a variant by id.
     """
@@ -47,7 +55,10 @@ async def get_variant(variant_id: int, db: session = Depends(current_session)):
 
 
 @router.get("/", response_model=VariantList, status_code=status.HTTP_200_OK)
-async def get_variants(db: session = Depends(current_session)):
+async def get_variants(
+    db: session = Depends(current_session),
+    current_user: Account = Depends(get_current_account),
+):
     """
     Get all variants.
     """

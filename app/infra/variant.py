@@ -60,4 +60,6 @@ class Variant(Base):
     external_id = Column(String, index=True, nullable=True)
     publications = Column(ARRAY(String), nullable=True)
 
-    subjects = relationship("Subject", secondary="subject_variants", back_populates="variants")
+    subjects = relationship(
+        "Subject", secondary="subject_variants", back_populates="variants"
+    )
