@@ -7,10 +7,19 @@ from app.db import session
 from app.db.session import Base, current_session, engine
 from app.routes import route_auth, route_subjects, route_variants
 from app.settings import logger
+from fastapi.middleware.cors import CORSMiddleware
 
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 @app.get("/health")

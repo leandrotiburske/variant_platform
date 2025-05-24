@@ -1,8 +1,55 @@
+# =========================
+# Ambiente e configurações
+# =========================
 .env
+.env.*.local
+*.local
+
+# =========================
+# Dependências
+# =========================
+node_modules/
+
+# =========================
+# Build / Output
+# =========================
+dist/
+dist-ssr/
+public/
+build/
+out/
+
+# =========================
+# Python
+# =========================
 venv/
 __pycache__/
-*.pyc
 */__pycache__/
-.mypy_cache
-.pytest_cache
+*.pyc
+.mypy_cache/
+.pytest_cache/
 .coverage
+
+# =========================
+# Logs
+# =========================
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# =========================
+# Configurações de editor
+# =========================
+.vscode/
+!.vscode/extensions.json
+.idea/
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
