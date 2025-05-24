@@ -1,41 +1,19 @@
 import React, { useState } from "react"
-import { Button } from "@mui/joy"
-import axios from "axios"
+
+import onSubmit from "./onSubmit"
 
 import platformIcon from "../assets/platform-icon.png"
 import checkIcon from "../assets/check.png"
 
-function Login() {
-
-    function onSubmit() {
-
-        /// Change button color when submitted
-        axios.post('http://localhost:8080/auth/register/', {
-            "username": form.username,
-            "email": form.email,
-            "password": form.password
-        })
-        .then(function (response) {
-            console.log(response);
-            setForm((prevValue) => {
-                return {
-                    ...prevValue,
-                    registrado: true
-                }
-            })
-            
-        })
-        .catch(function (error) {
-            console.log(error);
-            
-        })
-    }
+function Register() {
 
     const [form, setForm] = useState({
         username: "",
         email: "",
         password: "",
-        registrado: false
+        registered: false,
+        error: false,
+        errorMessage: []
     });
 
     function handleChange(event) {
@@ -55,7 +33,7 @@ function Login() {
 
             <img src={platformIcon} id="platform-logo" />
 
-            {form.registrado ? (
+            {form.registered ? (
                 <div className="form">
 
                     <img 
@@ -90,11 +68,20 @@ function Login() {
                 ></input>
 
 
-                <button onClick={onSubmit}>Submit</button>
+                <button onClick={() => onSubmit(form, setForm)}>Submit</button>
+
+                {form.error ? form.errorMessage.map(message => (
+                    <p style={{
+                        color: "black", 
+                        fontWeight: 600, 
+                        margin: "18px",
+                        fontSize: "15px"}}>{message}</p>
+                    )) : null}
+
                 </div>
             )}
         </div>
     );
 }
 
-export default Login;
+export default Register;

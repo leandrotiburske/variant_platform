@@ -1,9 +1,12 @@
 import React from "react"
-import Login from "./Login/Login"
+import {BrowserRouter, Routes, Route} from "react-router-dom"
+import Register from "./Register/Register"
 
 function App() {
     return (
-        <Login />
+        <Routes>
+            <Route path="/register" element={<Register/>} />
+        </Routes>
     )
 }
 
