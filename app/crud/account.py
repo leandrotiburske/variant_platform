@@ -3,6 +3,7 @@ from sqlalchemy.orm import Session
 from app.auth.authentication import hash_password
 from app.dtos.account import AccountCreate, AccountLogin, AccountResponse
 from app.infra.account import Account
+from fastapi import HTTPException
 
 
 def create_account(db: Session, account: AccountCreate) -> AccountResponse:
@@ -16,7 +17,6 @@ def create_account(db: Session, account: AccountCreate) -> AccountResponse:
     db.commit()
     db.refresh(account_data)
     return account_data
-
 
 def retrieve_account(db: Session, email: str) -> AccountLogin:
     account = db.query(Account).filter(Account.email == email).first()

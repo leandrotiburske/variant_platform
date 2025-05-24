@@ -8,6 +8,6 @@ class Account(Base):
     __tablename__ = "accounts"
 
     id = Column(Integer, primary_key=True)
-    username = Column(String, index=True, nullable=False)
+    username = Column(String, index=True, unique=True, nullable=False)
     email = Column(String, index=True, unique=True, nullable=False)
     hashed_password = Column(String, nullable=False)

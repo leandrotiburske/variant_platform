@@ -31,10 +31,16 @@ async def register(
         return create_account(db, account)
     except Exception as e:
         logger.error(f"Error creating account: {e}")
-        raise HTTPException(
-            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
-            detail="An error occurred while creating the account.",
-        )
+
+        if "email" in str(e.orig).lower():
+            raise HTTPException(status_code=409, detail="Email already exists")
+        elif "username" in str(e.orig).lower():
+            raise HTTPException(status_code=409, detail="Username already exists")
+        else:
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="An error occurred while creating the account.",
+                )
 
 
 @router.post("/login/", response_model=None)
