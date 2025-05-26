@@ -1,12 +1,14 @@
-import React, { useState } from "react"
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
-import onSubmit from "./onSubmit"
+import onSubmit from "./onSubmit";
 
-import platformIcon from "../assets/platform-icon.png"
-import checkIcon from "../assets/check.png"
+import styles from "./Register.module.css";
+
+import platformIcon from "../assets/platform-icon.png";
+import checkIcon from "../assets/check.png";
 
 function Register() {
-
     const [form, setForm] = useState({
         username: "",
         email: "",
@@ -24,60 +26,71 @@ function Register() {
             return {
                 ...prevValue,
                 [name]: value
-            };        
+            };
         });
     }
 
     return (
-        <div className="registration">
-
-            <img src={platformIcon} id="platform-logo" />
+        <div className={styles["account-page"]}>
+            <img src={platformIcon} id={styles["platform-logo"]} alt="Platform Icon" />
 
             {form.registered ? (
-                <div className="form">
-
-                    <img 
-                        src={checkIcon} 
-                        style={{
-                            height: "10vh",
-                            marginTop: "18px"
-                            }}></img>
-
-                    <p>Account registered succesfully.</p>
+                <div className={styles.form}>
+                    <img
+                        src={checkIcon}
+                        style={{height: "15vh",
+                            padding: "10px"
+                        }}
+                        alt="Check Icon"
+                    />
+                    <p className={styles["sucess-message"]}>Account registered successfully.</p>
+                    <Link className={styles.link} to="../login">
+                        Proceed to login.
+                    </Link>
                 </div>
-            ) : (          
-            <div className="form">
+            ) : (
+                <div className={styles.form}>
+                    <h1>Register</h1>
 
-                <h1>Register</h1>
+                    <input
+                        type="text"
+                        placeholder="Username"
+                        name="username"
+                        className={styles.input}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="text"
+                        placeholder="Email"
+                        name="email"
+                        className={styles.input}
+                        onChange={handleChange}
+                    />
+                    <input
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        className={styles.input}
+                        onChange={handleChange}
+                    />
 
-                <input 
-                    type="text" 
-                    placeholder="Username"
-                    name="username"
-                    onChange={handleChange}></input>
-                <input 
-                    type="text" 
-                    placeholder="Email"
-                    name="email"
-                    onChange={handleChange}></input>
-                <input
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    onChange={handleChange}
-                ></input>
+                    <button
+                        className={styles["submit-button"]}
+                        onClick={() => onSubmit(form, setForm)}
+                    >
+                        Submit
+                    </button>
 
-
-                <button onClick={() => onSubmit(form, setForm)}>Submit</button>
-
-                {form.error ? form.errorMessage.map(message => (
-                    <p style={{
-                        color: "black", 
-                        fontWeight: 600, 
-                        margin: "18px",
-                        fontSize: "15px"}}>{message}</p>
-                    )) : null}
-
+                    {form.error
+                        ? form.errorMessage.map((message, index) => (
+                              <p
+                                  key={index}
+                                  className={styles["error-message"]}
+                              >
+                                  {message}
+                              </p>
+                          ))
+                        : null}
                 </div>
             )}
         </div>
