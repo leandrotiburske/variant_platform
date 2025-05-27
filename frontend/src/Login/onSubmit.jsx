@@ -22,16 +22,8 @@ function onSubmit(form, setForm, navigate) {
         const token = response.data.access_token;
 
         localStorage.setItem("access_token", token);
-        
-        axios.interceptors.request.use((config) => {
-            const token = response.data.access_token;
-            if (token) {
-              config.headers.Authorization = `Bearer ${token}`;
-            }
-            return config;
-          });        
-
-        navigate("../dashboard");
+    
+        navigate("../home");
 
     })
     .catch(function (error) {

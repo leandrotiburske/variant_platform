@@ -24,7 +24,7 @@ def get_subject_by_id(db: Session, subject_id: int) -> SubjectResponse:
     subject = db.query(Subject).filter(Subject.id == subject_id).first()
     if not subject:
         raise ValueError(f"Subject with id {subject_id} not found.")
-    return {"subject": subject}
+    return subject
 
 
 def add_variant_to_subject(

@@ -44,11 +44,13 @@ function Login() {
                     type="text" 
                     placeholder="Email"
                     name="email"
+                    autoComplete="off"
                     onChange={handleChange}></input>
                 <input
                     type="password"
                     placeholder="Password"
                     name="password"
+                    autoComplete="off"
                     onChange={handleChange}
                 ></input>
 

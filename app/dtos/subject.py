@@ -20,6 +20,8 @@ class SubjectUpdate(SubjectCreate):
 
 
 class SubjectResponse(SubjectCreate):
+    name: str
+    email: EmailStr
     id: int
     variants: List[VariantResponse] = []
 

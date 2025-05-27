@@ -57,6 +57,7 @@ function Register() {
                         placeholder="Username"
                         name="username"
                         className={styles.input}
+                        autoComplete="off"
                         onChange={handleChange}
                     />
                     <input
@@ -64,6 +65,7 @@ function Register() {
                         placeholder="Email"
                         name="email"
                         className={styles.input}
+                        autoComplete="off"
                         onChange={handleChange}
                     />
                     <input
@@ -71,6 +73,7 @@ function Register() {
                         placeholder="Password"
                         name="password"
                         className={styles.input}
+                        autoComplete="off"
                         onChange={handleChange}
                     />
 

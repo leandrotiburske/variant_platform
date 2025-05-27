@@ -1,0 +1,86 @@
+.sidebar {
+    background-color: #1e293b;
+    height: 100vh;
+    width: 250px;
+    position: relative;
+}
+
+.sidebar.collapsed {
+    width: 80px;
+}
+
+h3 {
+    color: #f8fafc;
+    font-family: "Ubuntu", sans-serif;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    padding: 20px;
+}
+
+img {
+    height: 30px;
+}
+
+.sidebarIcon {
+    color: #f8fafc;
+}
+
+.toggleButton {
+    color: #f8fafc;
+    background-color: #334155;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: -15px;
+    top: 22px;
+    width: 25px;
+    height: 25px;
+}
+
+.toggleButton:active {
+    background-color: black;
+}
+
+.nav-links {
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-links.notCollapsed {
+    padding: 30px;
+}
+
+.nav-links.collapsed {
+    align-items: center;
+    justify-content: center;
+    padding-top: 30px;
+}
+
+.link {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    text-decoration: none;
+    gap: 10px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.link:hover {
+    background-color: #334155;
+    border-radius: 10px;
+}
+
+.link:active {
+    background-color: black;
+}
+
+p {
+    font-size: 15px;
+}
