@@ -1,42 +1,61 @@
 import React, { useEffect, useRef } from "react";
-import styles from "./VariantDetails.module.css"
+import styles from "./VariantDetails.module.css";
 
 function IGVViewer({ locus }) {
   const igvContainer = useRef(null);
+  const browserRef = useRef(null);
 
   useEffect(() => {
-    let browser;
-    // Dynamically load the IGV script
-    const script = document.createElement("script");
-    script.src = "../../../public/igv.min.js"; // Adjusted path to public folder
-    script.async = true;
+    let isCancelled = false;
 
-    script.onload = () => {
-      // `igv` will be available globally on `window`
-      const igv = window.igv;
-      const options = {
-        genome: "hg38",
-        locus,
-      };
-      igv.createBrowser(igvContainer.current, options).then((b) => {
-        browser = b;
+    // Check if IGV is already loaded
+    const loadIGV = () => {
+      if (window.igv) return Promise.resolve(window.igv);
+
+      return new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src = "https://cdn.jsdelivr.net/npm/igv@3.3.0/dist/igv.min.js";
+        script.async = true;
+
+        script.onload = () => resolve(window.igv);
+        script.onerror = () => reject(new Error("Failed to load IGV script"));
+
+        document.body.appendChild(script);
       });
     };
 
-    document.body.appendChild(script);
+    loadIGV()
+      .then((igv) => {
+        if (isCancelled) return;
+        const options = {
+          genome: "hg38",
+          locus,
+        };
+        return igv.createBrowser(igvContainer.current, options);
+      })
+      .then((browser) => {
+        if (isCancelled) return;
+        browserRef.current = browser;
+      })
+      .catch((error) => {
+        console.error(error);
+      });
 
     return () => {
-      if (browser) {
-        browser.destroy();
+      isCancelled = true;
+      if (browserRef.current) {
+        browserRef.current.destroy();
+        browserRef.current = null;
       }
-      document.body.removeChild(script);
     };
   }, [locus]);
 
-  return <div 
-          ref={igvContainer} 
-          className={styles.igvBrowser}
-          style={{ height: "500px" }} />;
+  return (
+    <div
+      ref={igvContainer}
+      className={styles.igvBrowser}
+    />
+  );
 }
 
 export default IGVViewer;
