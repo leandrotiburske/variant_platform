@@ -4,9 +4,11 @@ from fastapi import APIRouter, Depends, HTTPException, Query, status
 
 import app.dtos as dtos
 from app.auth.authentication import get_current_account
-from app.crud.subject import (add_variant_to_subject, create_subject,
+from app.crud.subject import (add_variant_to_subject, 
+                              create_subject,
                               get_subject_by_id,
-                              get_subject_variants_and_filter)
+                              get_subject_variants_and_filter, 
+                              get_all_subjects)
 from app.db import session
 from app.db.session import current_session
 from app.infra.account import Account
@@ -14,6 +16,24 @@ from app.settings import logger
 
 router = APIRouter(prefix="/subjects", tags=["subjects"])
 
+@router.get(
+    "/",
+    response_model=dtos.subject.SubjectList,
+    status_code=status.HTTP_200_OK,
+)
+async def get_subjects(
+    db: session = Depends(current_session),
+    account: Account = Depends(get_current_account),
+
+):
+    try:
+        subjects = get_all_subjects(db=db)
+        return {"subjects": subjects}
+    except Exception as e:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail=f"Subjects not found: {str(e)}",
+        ) from e
 
 @router.get(
     "/{subject_id}/",

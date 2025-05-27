@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import platformIcon from "../../assets/platform-icon.png"
 import { useState } from "react";
 import {
@@ -14,6 +14,12 @@ import { MdLogout } from "react-icons/md"
 import styles from "./Sidebar.module.css"
 
 function Sidebar() {
+
+  const navigate = useNavigate();
+
+  function logout(navigate) {
+    localStorage.setItem("access_token", "");
+  }
 
   const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -64,7 +70,7 @@ function Sidebar() {
           </Link>
         </div>
         <div>
-          <Link className={styles.link} to=".">
+          <Link className={styles.link} to="../login" onClick={() => logout(navigate)}>
             <MdLogout className={styles.sidebarIcon}/>
             {isCollapsed ? null : <p>Logout</p>}
           </Link>

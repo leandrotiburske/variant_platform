@@ -1,8 +1,8 @@
-from typing import Optional
+from typing import Optional, List
 
 from sqlalchemy.orm import Session
 
-from app.dtos.subject import SubjectCreate, SubjectResponse
+from app.dtos.subject import SubjectCreate, SubjectResponse, SubjectList
 from app.dtos.variant import VariantList
 from app.infra.subject import Subject
 from app.infra.variant import Variant
@@ -15,12 +15,16 @@ def create_subject(db: Session, subject: SubjectCreate) -> SubjectResponse:
     db.refresh(subject)
     return subject
 
+def get_all_subjects(db: Session) -> List[SubjectResponse]:
+    subjects = db.query(Subject).all()
+    return subjects
+
 
 def get_subject_by_id(db: Session, subject_id: int) -> SubjectResponse:
     subject = db.query(Subject).filter(Subject.id == subject_id).first()
     if not subject:
         raise ValueError(f"Subject with id {subject_id} not found.")
-    return subject
+    return {"subject": subject}
 
 
 def add_variant_to_subject(

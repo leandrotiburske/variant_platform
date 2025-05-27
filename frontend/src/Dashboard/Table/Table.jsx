@@ -1,30 +1,41 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   useReactTable,
   getCoreRowModel,
   flexRender,
 } from "@tanstack/react-table";
 import styles from "./Table.module.css"
+import axios from "axios";
 
 function Table() {
-  const data = React.useMemo(
-    () => [
-      { id: 1, name: "Leandro", email: "leandro@email.com" },
-      { id: 2, name: "Maria", email: "maria@email.com" },
-      { id: 3, name: "João", email: "joao@email.com" },
-    ],
-    []
-  );
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    async function fetchSubjects() {
+      try {
+        const response = await axios.get("http://localhost:8080/subjects");
+        setData(response.data.subjects);
+      } catch (error) {
+        setData([]);
+      }
+    }
+
+    fetchSubjects();
+  }, []);  
 
   const columns = React.useMemo(
     () => [
+      { accessorKey: "id",
+        header: "Patient ID",
+      },
       {
         accessorKey: "name",
-        header: "Name",
+        header: "Patient name",
       },
       {
         accessorKey: "email",
-        header: "Email",
+        header: "Patient email",
       },
     ],
     []
