@@ -1,8 +1,11 @@
 .sidebar {
     background-color: #1e293b;
-    height: 100vh;
+    height: 100%;
     width: 250px;
-    position: relative;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    overflow: "auto";
 }
 
 .sidebar.collapsed {

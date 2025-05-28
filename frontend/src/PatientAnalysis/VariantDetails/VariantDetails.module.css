@@ -1,6 +1,7 @@
 .dashboard {
-    display: flex;
-    flex-direction: row;
+  display: flex;
+  height: 100vh;
+  overflow: auto;
 }
 
 .igvBrowser {
@@ -13,10 +14,18 @@
     padding: 15px;
     border-radius: 35px;
     box-shadow: 0 4px 30px black;
+    width: 750px;
 }
 
 .browserTitle {
     color: white;
     font-family: 'Ubuntu', sans-serif;
     padding: 15px;
+}
+
+.contentWrapper {
+  flex-grow: 1;
+  height: 100%;
+  margin: 40px;
+  box-sizing: border-box;
 }

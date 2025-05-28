@@ -40,27 +40,25 @@ function VariantDetails() {
 
     const [isCollapsed, setIsCollapsed] = useState(true);
 
-    const geneName = data["gene"]
-
-
     return (
-        geneName && (
-            <div className={styles.dashboard}>
-                <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
+            data["gene"] && (
+                <div className={styles.dashboard}>
+                    <Sidebar 
+                        isCollapsed={isCollapsed} 
+                        setIsCollapsed={setIsCollapsed} />
 
-                <div style={{margin: "40px"}}>
-                    <h2 className={styles.browserTitle}>Publications</h2>
-                    <Table data={(data.publications || []).map(pub => ({ publications: pub }))} />
-                    <h2 className={styles.browserTitle}>Genome Browser</h2>
-                    <IGVViewer 
-                        locus={geneName}
-                        key={geneName}
-                        className={styles.igvBrowser}
-                    />
+                    <div className={styles.contentWrapper}>
+                        <h2 className={styles.browserTitle}>Publications</h2>
+                        <Table data={(data.publications || []).map(pub => ({ publications: pub }))} />
+                        <h2 className={styles.browserTitle}>Genome Browser</h2>
+                        <IGVViewer
+                            locus={data["gene"]}
+                            key={data["gene"]}
+                            className={styles.igvBrowser}
+                        />
+                    </div>
                 </div>
-            </div>
-        )
-    );
-}
+            )
+        )}   
 
 export default VariantDetails;

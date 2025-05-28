@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./VariantDetails.module.css";
 
 function IGVViewer({ locus }) {
@@ -35,7 +35,7 @@ function IGVViewer({ locus }) {
       })
       .then((browser) => {
         if (isCancelled) return;
-        browserRef.current = browser;
+        browserRef.current = browser;        
       })
       .catch((error) => {
         console.error(error);

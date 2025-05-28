@@ -3,13 +3,17 @@ table {
     font-family: "Ubuntu", sans-serif;
     margin: 40px;
     border-radius: 15px;
-    overflow: hidden;
     box-shadow: 0 4px 30px black;
+    border-collapse: collapse;
+
+}
+
+.link {
+  text-decoration: underline;
 }
 
 table, th, td {
     border: 1px solid #0f172a; 
-    border-collapse: collapse;
 }
   
 th, td {
