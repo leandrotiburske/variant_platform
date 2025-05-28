@@ -1,0 +1,31 @@
+table {
+    background-color: #334155;
+    font-family: "Ubuntu", sans-serif;
+    margin: 40px;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 30px black;
+}
+
+table, th, td {
+    border: 1px solid #0f172a; 
+    border-collapse: collapse;
+}
+  
+th, td {
+  padding: 12px;
+  color: #f8fafc;
+}
+
+th {
+  background-color: #1e293b;
+}
+
+tr:hover {
+  background-color: #1e293b;
+  cursor: pointer;
+}
+
+tr:active {
+  background-color: black;
+}

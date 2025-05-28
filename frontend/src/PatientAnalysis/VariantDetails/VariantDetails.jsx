@@ -4,6 +4,7 @@ import Sidebar from "../../Sidebar/Sidebar";
 import styles from "./VariantDetails.module.css"
 import IGVViewer from "./IGVViewer";
 import api from "../../api"
+import Table from "./Table";
 
 function VariantDetails() {
 
@@ -28,9 +29,7 @@ function VariantDetails() {
         async function fetchVariantDetails() {
             try {
                 const response = await api.get(`http://localhost:8080/variants/${variant}`);
-                console.log(response.data);
                 setData(response.data);
-                console.log(data);
                 
             } catch (error) {
                 console.log(error);
@@ -39,15 +38,10 @@ function VariantDetails() {
         fetchVariantDetails();
     }, [variant]);
 
-    useEffect(() => {
-        console.log("Updated data:", data);
-        console.log(data["gene"]);
-        
-    }, [data]);
-
     const [isCollapsed, setIsCollapsed] = useState(true);
 
     const geneName = data["gene"]
+
 
     return (
         geneName && (
@@ -55,6 +49,8 @@ function VariantDetails() {
                 <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
 
                 <div style={{margin: "40px"}}>
+                    <h2 className={styles.browserTitle}>Publications</h2>
+                    <Table data={(data.publications || []).map(pub => ({ publications: pub }))} />
                     <h2 className={styles.browserTitle}>Genome Browser</h2>
                     <IGVViewer 
                         locus={geneName}
