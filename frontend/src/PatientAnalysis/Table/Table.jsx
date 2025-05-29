@@ -7,6 +7,7 @@ import {
 import styles from "./Table.module.css"
 import api from "../../api"
 import { useNavigate } from "react-router-dom";
+import {FaFilter, FaSearch} from "react-icons/fa"
 
 function Table({id}) {
 
@@ -16,7 +17,6 @@ function Table({id}) {
     async function fetchSubjects() {
       try {
         const response = await api.get(`http://localhost:8080/subjects/${id}`);
-        console.log(response.data.variants);
         setData(response.data.variants);
       } catch (error) {
         setData([]);
@@ -49,12 +49,8 @@ function Table({id}) {
         header: "Phenotypes"
       },
       {
-        accessorKey: "reference",
-        header: "Reference"
-      },
-      {
-        accessorKey: "alternative",
-        header: "Alternative"
+        accessorKey: "chromosome",
+        header: "Chromosome"
       },
     ],
     []
@@ -74,7 +70,46 @@ function Table({id}) {
 
   return (
     <div>
-    <table border="1">
+      <div className={styles.filterWrapper}>
+      <label className={styles.inputWrapper}>
+        <input
+          type="text"
+          placeholder="Filter by gene"
+          className={styles.filterInput}
+        />
+        <FaFilter className={styles.icon}/>
+      </label>
+      <label className={styles.inputWrapper}>
+        <input
+          type="text"
+          placeholder="Filter by classification"
+          className={styles.filterInput}
+        />
+        <FaFilter className={styles.icon}/>
+      </label>
+      <label className={styles.inputWrapper}>
+        <input
+          type="text"
+          placeholder="Filter by phenotype"
+          className={styles.filterInput}
+        />
+        <FaFilter className={styles.icon}/>
+      </label>
+      <label className={styles.inputWrapper}>
+        <input
+          type="text"
+          placeholder="Filter by chromosome"
+          className={styles.filterInput}
+        />
+        <FaFilter className={styles.icon}/>
+      </label>
+
+      <button id={styles.searchButton}>
+        <FaSearch id={styles.searchIcon}/>
+      </button>
+      </div>
+
+    <table border="1" className={styles.variantsTable}>
       <thead>
         {table.getHeaderGroups().map((headerGroup) => (
           <tr key={headerGroup.id}>
@@ -91,6 +126,7 @@ function Table({id}) {
           </tr>
         ))}
       </thead>
+
       <tbody>
         {table.getRowModel().rows.map((row) => (
           <tr key={row.id}

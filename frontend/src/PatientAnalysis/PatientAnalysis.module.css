@@ -11,3 +11,11 @@
 .search-bar {
     height: 50vh;
 }
+
+.contentWrapper {
+    display: flex;
+    flex-direction: column;
+    align-content: center;
+    justify-content: start;
+    margin: 40px;
+}

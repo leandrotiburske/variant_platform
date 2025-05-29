@@ -29,3 +29,73 @@ tr:hover {
 tr:active {
   background-color: black;
 }
+
+.variantsTable {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  margin-top: 10px;
+}
+
+.filterWrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  margin-top: 40px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.filterInput {
+  width: 195px;
+  height: 40px;
+  padding-left: 28px;
+  font-size: 15px;
+  margin-bottom: 0;
+}
+
+.filterInput:focus {
+  outline: 2px solid #82ca9d;
+}
+
+.inputWrapper {
+  position:relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon {
+  position: absolute;
+  left: 6px;
+  top: 14px;
+  height: 12px;
+  color: white;
+}
+
+.filterInput::placeholder {
+  font-size: 15px;
+}
+
+#searchButton {
+  height: 30px;
+  width: 30px;
+  margin: 0;
+  border-radius: 50%;
+  position: relative;
+}
+
+#searchButton:active {
+  background-color: #82ca9d;
+}
+
+#searchButton:active > #searchIcon {
+  color: black;
+}
+
+#searchIcon {
+  position: absolute;
+  top: 7px;
+  left: 5px;
+  height: 15px;
+}

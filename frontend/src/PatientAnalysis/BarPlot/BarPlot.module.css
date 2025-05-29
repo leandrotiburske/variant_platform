@@ -1,0 +1,22 @@
+.barplotWrapper {
+    width: '100%';
+    display: flex;
+    flex-direction: column;
+}
+
+.barplotTitle {
+    align-self: start;
+    padding-bottom: 10px;
+}
+
+.variantDensity {
+    padding-top: 10px;
+}
+
+.unitExplanation {
+    padding-top: 10px;
+}
+
+.chromosomeIcon {
+    fill: white;
+}

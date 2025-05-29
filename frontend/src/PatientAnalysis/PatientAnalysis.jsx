@@ -4,6 +4,7 @@ import Sidebar from "../Sidebar/Sidebar";
 import { useNavigate } from "react-router-dom";
 import styles from "./PatientAnalysis.module.css"
 import Table from "../PatientAnalysis/Table/Table";
+import BarChartWithChromosomes from "./BarPlot/BarPlot"
 
 function PatientAnalysis() {
 
@@ -28,8 +29,11 @@ function PatientAnalysis() {
     return (
         <div className={styles.dashboard}>
             <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed}/>
-            <div className={styles.tableWrapper}>
-                <Table id={id}/>
+            <div className={styles.contentWrapper}>
+                <BarChartWithChromosomes/>
+                <div className={styles.tableWrapper}>
+                    <Table id={id}/>
+                </div>
             </div>
         </div>
     )

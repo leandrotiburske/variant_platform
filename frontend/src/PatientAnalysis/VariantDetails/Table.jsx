@@ -5,10 +5,44 @@ import {
   flexRender,
 } from "@tanstack/react-table";
 import styles from "./Table.module.css"
-import api from "../../api"
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-function Table({data}) {
+function Table({data}) {  
+
+  const [papers, setPapers] = useState({});
+
+  useEffect(() => {
+    async function fetchPapers() {
+
+    const publications = data.map((pub) => {
+
+      const url = pub.publications;
+      const id = url.split('/').filter(Boolean).pop();
+      return {
+        "publications" : url,
+      }
+
+    });  
+
+      const id = "15114531";
+
+      try {
+        const response = await axios.get(`https://eutils.ncbi.nlm.nih.gov/entrez/eutils/esummary.fcgi?db=pubmed&id=${id}&retmode=json`)
+        setPapers(response);
+        console.log(response);
+        
+        
+        // console.log(response.data.result[id].title);
+        
+      } catch (error) {
+        console.log(error);
+        
+      }
+    }
+
+    fetchPapers();
+  }, data)  
 
   const columns = React.useMemo(
     () => [
