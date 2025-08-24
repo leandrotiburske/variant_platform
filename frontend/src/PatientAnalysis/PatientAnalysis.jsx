@@ -15,29 +15,29 @@ function PatientAnalysis() {
 
     useEffect(() => {
         if (!token) {
-          navigate("../../login");
+            navigate("../../login");
         }
     }, [token, navigate]);
-    
-        if (!token) {
-          return null;
-        }
+
+    if (!token) {
+        return null;
+    }
 
 
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     return (
         <div className={styles.dashboard}>
-            <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed}/>
+            <Sidebar isCollapsed={isCollapsed} setIsCollapsed={setIsCollapsed} />
             <div className={styles.contentWrapper}>
-                <BarChartWithChromosomes/>
+                <BarChartWithChromosomes />
                 <div className={styles.tableWrapper}>
-                    <Table id={id}/>
+                    <Table id={id} />
                 </div>
             </div>
         </div>
     )
-    
+
 }
 
 export default PatientAnalysis;

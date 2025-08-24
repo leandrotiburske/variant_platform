@@ -9,7 +9,6 @@ import styles from './BarPlot.module.css'
 import chromosomeIcon from '../../assets/Chromosome_icon.svg'
 
 export default class Example extends PureComponent {
-  static demoUrl = 'https://codesandbox.io/p/sandbox/bar-chart-with-customized-event-mmwz85';
 
   state = {
     data: [
@@ -198,59 +197,59 @@ export default class Example extends PureComponent {
 
     return (
       <div className={styles.barplotWrapper}>
-      <p className={styles.barplotTitle}>
-        Click on a chromosome bar below to view its variant density details.
-      </p>
-      <ResponsiveContainer width="100%" height={100}>
-        <BarChart width={150} height={40} data={data}>
-        <Bar 
-          dataKey="density" 
-          onClick={this.handleClick}
-          label={({ x, y, width, height, index }) => {
-            
-            const item = data[index];
-            const centerX = x + width / 2;
+        <p className={styles.barplotTitle}>
+          Click on a chromosome bar below to view its variant density details.
+        </p>
+        <ResponsiveContainer width="100%" height={100}>
+          <BarChart width={150} height={40} data={data}>
+            <Bar
+              dataKey="density"
+              onClick={this.handleClick}
+              label={({ x, y, width, height, index }) => {
 
-            return (
-              <g>
-                <image
-                  href={chromosomeIcon}
-                  x={centerX - 10} 
-                  y={y + 2} 
-                  width={20}
-                  height={20}
+                const item = data[index];
+                const centerX = x + width / 2;
+
+                return (
+                  <g>
+                    <image
+                      href={chromosomeIcon}
+                      x={centerX - 10}
+                      y={y + 2}
+                      width={20}
+                      height={20}
+                    />
+                    <text
+                      x={centerX}
+                      y={y + 35}
+                      textAnchor="middle"
+                      fill="black"
+                      fontSize="12"
+                      fontFamily="Ubuntu"
+                      fontWeight="bold"
+                    >
+                      {item.chromosomeNumber}
+                    </text>
+                  </g>
+                );
+              }}
+            >
+              {data.map((entry, index) => (
+                <Cell
+                  cursor="pointer"
+                  fill={index === activeIndex ? '#82ca9d' : '#8884d8'}
+                  key={`cell-${index}`}
                 />
-                <text
-                  x={centerX}
-                  y={y + 35} 
-                  textAnchor="middle"
-                  fill="black"
-                  fontSize="12"
-                  fontFamily="Ubuntu"
-                  fontWeight="bold"
-                >
-                  {item.chromosomeNumber}
-                </text>
-              </g>
-            );
-          }}
-         >
-          {data.map((entry, index) => (
-          <Cell
-            cursor="pointer"
-            fill={index === activeIndex ? '#82ca9d' : '#8884d8'}
-            key={`cell-${index}`}
-          />
-          ))}
-        </Bar>
-        </BarChart>
-      </ResponsiveContainer>
-      <p className={styles.variantDensity}>
-        <strong>{activeItem.name}</strong> — Variant density: <strong>{activeItem.density}</strong>
-      </p>
-      <p className={styles.unitExplanation}>
-        <em>Variant density = Number of variants on chromosome / Chromosome size (Kb)</em>
-      </p>
+              ))}
+            </Bar>
+          </BarChart>
+        </ResponsiveContainer>
+        <p className={styles.variantDensity}>
+          <strong>{activeItem.name}</strong> — Variant density: <strong>{activeItem.density}</strong>
+        </p>
+        <p className={styles.unitExplanation}>
+          <em>Variant density = Number of variants on chromosome / Chromosome size (Kb)</em>
+        </p>
       </div>
     );
   }
