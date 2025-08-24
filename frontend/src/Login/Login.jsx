@@ -31,6 +31,12 @@ function Login() {
         });
     }
 
+    function handleKeyPress(keypress) {
+        if (keypress.key === 'Enter') {
+            onSubmit(form, setForm, navigate);
+        }
+    };
+
     return (
         <div className={styles["account-page"]}>
 
@@ -45,17 +51,22 @@ function Login() {
                     placeholder="Email"
                     name="email"
                     autoComplete="off"
-                    onChange={handleChange}></input>
+                    onChange={handleChange}
+                    onKeyPress={(keypress) => handleKeyPress(keypress)}
+                ></input>
                 <input
                     type="password"
                     placeholder="Password"
                     name="password"
                     autoComplete="off"
                     onChange={handleChange}
+                    onKeyPress={(keypress) => handleKeyPress(keypress)}
                 ></input>
 
 
-                <button onClick={() => onSubmit(form, setForm, navigate)}>Submit</button>
+                <button
+                    onClick={() => onSubmit(form, setForm, navigate)}
+                >Submit</button>
 
                 {form.error ? form.errorMessage.map(message => (
                     <p className={styles["error-message"]}>{message}</p>
