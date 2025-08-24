@@ -1,8 +1,10 @@
 import React, { PureComponent } from 'react';
-import {BarChart, 
-        Bar,
-        Cell,
-        ResponsiveContainer } from 'recharts';
+import {
+  BarChart,
+  Bar,
+  Cell,
+  ResponsiveContainer
+} from 'recharts';
 import styles from './BarPlot.module.css'
 import chromosomeIcon from '../../assets/Chromosome_icon.svg'
 

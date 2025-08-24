@@ -10,32 +10,32 @@ function onSubmit(form, setForm, navigate) {
     formData.append('scope', '');
     formData.append('client_id', '');
     formData.append('client_secret', '');
-    
+
     axios.post('http://localhost:8080/auth/login/', formData, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+        }
     })
 
-    .then(function (response) {
+        .then(function (response) {
 
-        const token = response.data.access_token;
+            const token = response.data.access_token;
 
-        localStorage.setItem("access_token", token);
-    
-        navigate("../home");
+            localStorage.setItem("access_token", token);
 
-    })
-    .catch(function (error) {
+            navigate("../home");
 
-        setForm((prevValue) => {
-            return {
-                ...prevValue,
-                error: true,
-                errorMessage: []
-            }
         })
-    })
+        .catch(function (error) {
+
+            setForm((prevValue) => {
+                return {
+                    ...prevValue,
+                    error: true,
+                    errorMessage: ['Invalid email or password. Please try again.']
+                }
+            })
+        })
 }
 
 export default onSubmit;

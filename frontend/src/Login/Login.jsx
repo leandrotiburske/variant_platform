@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 import onSubmit from "./onSubmit"
 
@@ -10,7 +10,7 @@ import checkIcon from "../assets/check.png"
 
 function Login() {
 
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
 
     const [form, setForm] = useState({
         email: "",
@@ -27,7 +27,7 @@ function Login() {
             return {
                 ...prevValue,
                 [name]: value
-            };        
+            };
         });
     }
 
@@ -40,8 +40,8 @@ function Login() {
 
                 <h1>Sign in</h1>
 
-                <input 
-                    type="text" 
+                <input
+                    type="text"
                     placeholder="Email"
                     name="email"
                     autoComplete="off"
@@ -58,14 +58,10 @@ function Login() {
                 <button onClick={() => onSubmit(form, setForm, navigate)}>Submit</button>
 
                 {form.error ? form.errorMessage.map(message => (
-                    <p style={{
-                        color: "black", 
-                        fontWeight: 600, 
-                        margin: "18px",
-                        fontSize: "15px"}}>{message}</p>
-                    )) : null}
+                    <p className={styles["error-message"]}>{message}</p>
+                )) : null}
 
-                </div>
+            </div>
         </div>
     );
 }
